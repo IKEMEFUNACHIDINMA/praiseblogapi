@@ -35,6 +35,6 @@ public class User {
     @Column(unique = true)
     @NotNull(message = "Mobile must be included")
     @Size(max = 11, message = "mobile must be 11 numbers")
-    private Long phonenumber;
+    private String phonenumber;
 
 }
