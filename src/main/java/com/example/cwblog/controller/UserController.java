@@ -1,5 +1,6 @@
 package com.example.cwblog.controller;
 
+import com.example.cwblog.dto.JwtResponse;
 import com.example.cwblog.dto.Logindto;
 import com.example.cwblog.model.User;
 import com.example.cwblog.service.UserService;
@@ -23,8 +24,9 @@ public class UserController {
 
      //Login by id
     @PostMapping("/login")
-    public String loginUser( @RequestBody Logindto user){
-         userService.loginUser(user);
-         return "Login successful";
+    public ResponseEntity<?> loginUser(@RequestBody Logindto user){
+//         userService.loginUser(user);
+        String token = userService.loginUser(user);
+         return ResponseEntity.ok(token);
     }
 }

@@ -13,6 +13,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private JwtServiceImpl jwtServiceImpl;
+
     @Override
     public User registerUser(User User) {
         User newUser = new User();
@@ -34,6 +37,6 @@ public class UserServiceImpl implements UserService {
        if (!existing.getPassword().equals(user.getPassword())){
            throw new HandleEventDoesNotExistException("Invalid Password");
        }
-       return "User logged in";
+       return jwtServiceImpl.generateToken(existing);
     }
 }
