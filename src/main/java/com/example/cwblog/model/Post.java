@@ -1,31 +1,23 @@
 package com.example.cwblog.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-//@Entity
-//@Table(name = "blog_data")
-@Document(collection = "blog_database")
+@Data
 @Getter
 @Setter
-@RequiredArgsConstructor
-@Data
-public class Blog {
+@Document(collection = "post_database")
+public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long blogid;
-
+    private String id;
     private String title;
-
-    private String content;
-
-    private String author;
-
-    private Long Date;
-
-
+    private String body;
 }

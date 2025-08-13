@@ -5,9 +5,12 @@ import com.example.cwblog.exceptions.HandleEventDoesNotExistException;
 import com.example.cwblog.model.User;
 import com.example.cwblog.repository.UserRepository;
 import com.example.cwblog.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -15,6 +18,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private JwtServiceImpl jwtServiceImpl;
+
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User registerUser(User User) {
@@ -34,9 +40,12 @@ public class UserServiceImpl implements UserService {
         User existing = userRepository.findByEmailIgnoreCase(String.valueOf(user.getEmail()))
                .orElseThrow(() -> new HandleEventDoesNotExistException("User details not found"));
 
-       if (!existing.getPassword().equals(user.getPassword())){
-           throw new HandleEventDoesNotExistException("Invalid Password");
-       }
-       return jwtServiceImpl.generateToken(existing);
+//       if (!existing.getPassword().equals(user.getPassword())){
+//           throw new HandleEventDoesNotExistException("Invalid Password");
+//       }
+        if (!passwordEncoder.matches(user.getPassword(), existing.getPassword())) {
+            throw new HandleEventDoesNotExistException("Invalid password");
+        }
+        return jwtServiceImpl.generateToken(existing);
     }
 }

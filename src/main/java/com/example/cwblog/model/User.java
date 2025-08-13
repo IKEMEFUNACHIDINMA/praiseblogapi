@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,8 +17,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
-@Table(name = "user_data")
+//@Entity
+//@Table(name = "user_data")
+@Document(collection = "user_data")
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userid;
+    private String userid;
 
     @NotBlank(message = "user must input name")
     @Column(unique = true)
