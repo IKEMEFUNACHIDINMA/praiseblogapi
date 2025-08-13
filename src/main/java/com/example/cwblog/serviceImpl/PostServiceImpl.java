@@ -6,6 +6,8 @@ import com.example.cwblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostServiceImpl implements PostService {
     @Autowired
@@ -25,5 +27,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post getPostById(String id) {
         return postRepository.getById(id);
+    }
+
+    @Override
+    public List<Post> getAllPost() {
+        return postRepository.findAll();
     }
 }

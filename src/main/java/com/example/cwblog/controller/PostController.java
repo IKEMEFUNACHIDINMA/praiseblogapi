@@ -5,6 +5,8 @@ import com.example.cwblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/post")
 public class PostController {
@@ -19,5 +21,10 @@ public class PostController {
     @GetMapping("/{id}")
     public String getPostById(@PathVariable String id) {
         return postService.getPostById(id).toString();
+    }
+
+    @GetMapping
+    public List<Post> getAllPost() {
+        return postService.getAllPost();
     }
 }
